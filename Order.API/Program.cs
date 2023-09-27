@@ -21,7 +21,13 @@ builder.Services.AddOpenTelemetry().WithTracing(options =>
     {
         resource.AddService(OTConstants.ServiceName, serviceVersion: OTConstants.ServiceVersion);
     });
-    options.AddAspNetCoreInstrumentation();
+    options.AddAspNetCoreInstrumentation(instrumentationsOptions =>
+    {
+        instrumentationsOptions.Filter = (context) =>
+        {
+            return context.Request.Path.Value!.Contains("api", StringComparison.InvariantCulture);
+        };
+    });
     options.AddConsoleExporter();
     options.AddOtlpExporter();
 });
