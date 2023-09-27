@@ -4,6 +4,6 @@ namespace Observability.Order.API.OpenTelemetry
 {
     internal static class ActivitySourceProvider
     {
-        internal static ActivitySource Source = new ActivitySource();
+        internal static ActivitySource Source;
     }
 }

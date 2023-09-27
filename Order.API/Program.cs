@@ -12,12 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<OpenTelemetryConstants>(builder.Configuration.GetSection("OpenTelemetry"));
-
-
-
+var OTConstants = (builder.Configuration.GetSection("OpenTelemetry").Get<OpenTelemetryConstants>())!;
 builder.Services.AddOpenTelemetry().WithTracing(options =>
 {
-    var OTConstants = (builder.Configuration.GetSection("OpenTelemetry").Get<OpenTelemetryConstants>())!;
+    
     options.AddSource(OTConstants.ActivitySourceName)
     .ConfigureResource(resource =>
     {
@@ -27,6 +25,8 @@ builder.Services.AddOpenTelemetry().WithTracing(options =>
     options.AddConsoleExporter();
     options.AddOtlpExporter();
 });
+
+ActivitySourceProvider.Source = new System.Diagnostics.ActivitySource(OTConstants.ActivitySourceName);
 
 var app = builder.Build();
 
