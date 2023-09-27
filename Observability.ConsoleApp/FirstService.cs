@@ -19,6 +19,9 @@ namespace Observability.ConsoleApp
             activity?.AddTag("response.lenght", responseContent.Length); //This is the correct usage instead of tag.
             eventTags.Add("Google Body Lenght", responseContent.Length); //This is not best practice.
             activity?.AddEvent(new("Google Request Finished", tags: eventTags));
+
+            var secondService = new SecondService();
+            await secondService.WriteToFile(responseContent.Length.ToString());
             return responseContent.Length;
         }
     }
