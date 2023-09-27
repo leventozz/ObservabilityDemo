@@ -3,7 +3,7 @@ using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-var traceProvider = Sdk.CreateTracerProviderBuilder()
+using var traceProvider = Sdk.CreateTracerProviderBuilder()
     .AddSource(OpenTelemetryConstants.ActivitySourceName)
     .ConfigureResource(configure =>
     {
@@ -13,7 +13,8 @@ var traceProvider = Sdk.CreateTracerProviderBuilder()
                     new KeyValuePair<string, object>("host.machineName", Environment.MachineName),
                     new KeyValuePair<string, object>("host.enviroment", "develop"),
                 });
-    }).AddConsoleExporter().Build();
+    }).AddConsoleExporter().AddOtlpExporter().Build();
 
 ServiceHelper serviceHelper = new();
 await serviceHelper.Worker1();
+await serviceHelper.Worker2();

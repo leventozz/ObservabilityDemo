@@ -24,5 +24,13 @@ namespace Observability.ConsoleApp
             await secondService.WriteToFile(responseContent.Length.ToString());
             return responseContent.Length;
         }
+
+        internal async Task<int> GetStackOverFlowBytes()
+        {
+            using var activity = ActivitySourceProvider.Source.StartActivity();
+            var result = await httpClient.GetAsync("https://www.stackoverflow.com");
+            var responseContent = await result.Content.ReadAsStringAsync();
+            return responseContent.Length;
+        }
     }
 }
