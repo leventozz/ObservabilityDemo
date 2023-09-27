@@ -12,9 +12,12 @@ namespace Observability.ConsoleApp
             var eventTags = new ActivityTagsCollection();
 
             activity?.AddEvent(new("Google Request Started"));
+            activity?.AddTag("request.scheme", "https");
+            activity?.AddTag("request.method", "GET");
             var result = await httpClient.GetAsync("https://www.google.com");
             var responseContent = await result.Content.ReadAsStringAsync();
-            eventTags.Add("Google Body Lenght", responseContent.Length);
+            activity?.AddTag("response.lenght", responseContent.Length); //This is the correct usage instead of tag.
+            eventTags.Add("Google Body Lenght", responseContent.Length); //This is not best practice.
             activity?.AddEvent(new("Google Request Finished", tags: eventTags));
             return responseContent.Length;
         }
