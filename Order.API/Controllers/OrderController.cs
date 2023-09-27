@@ -7,5 +7,13 @@ namespace Order.API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult Create()
+        {
+            int a = 5;
+            int b = 0;
+            int c = a / b;
+            return Ok();
+        }
     }
 }

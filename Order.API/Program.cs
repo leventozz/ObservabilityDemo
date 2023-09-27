@@ -27,6 +27,7 @@ builder.Services.AddOpenTelemetry().WithTracing(options =>
         {
             return context.Request.Path.Value!.Contains("api", StringComparison.InvariantCulture);
         };
+        instrumentationsOptions.RecordException = true;
     });
     options.AddConsoleExporter();
     options.AddOtlpExporter();
