@@ -1,3 +1,4 @@
+using Common.Shared;
 using OpenTelemetry.Shared;
 using Order.API.OrderServices;
 
@@ -21,7 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<RequestAndResponseActivityMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

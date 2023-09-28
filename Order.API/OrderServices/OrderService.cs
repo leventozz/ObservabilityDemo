@@ -7,7 +7,6 @@ namespace Order.API.OrderServices
     {
         public Task CreateAsync(OrderCreateRequestDto requestDto)
         {
-            Activity.Current?.SetTag("It's main activity","Yes it's");
             using var activity = ActivitySourceProvider.Source.StartActivity()!;
             activity.AddEvent(new ActivityEvent("Order process started"));
 
