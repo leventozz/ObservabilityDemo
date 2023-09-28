@@ -14,7 +14,7 @@ namespace Order.API.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> CreateAsync(OrderCreateRequestDto requestDto)
         {
             await _orderService.CreateAsync(requestDto);
