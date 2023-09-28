@@ -10,9 +10,7 @@ namespace Order.API.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            int a = 5;
-            int b = 0;
-            int c = a / b;
+            
             return Ok();
         }
     }
