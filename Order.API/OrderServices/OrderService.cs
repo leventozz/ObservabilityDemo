@@ -1,17 +1,19 @@
 ﻿using Observability.Order.API.OpenTelemetry;
-using Order.API.OrderServices;
 using System.Diagnostics;
 
-namespace Order.API.OrderService
+namespace Order.API.OrderServices
 {
     public class OrderService
     {
         public Task CreateAsync(OrderCreateRequestDto requestDto)
         {
+            Activity.Current?.SetTag("It's main activity","Yes it's");
             using var activity = ActivitySourceProvider.Source.StartActivity()!;
             activity.AddEvent(new ActivityEvent("Order process started"));
 
             //Do some db operations etc.
+
+            activity.SetTag("order user id", requestDto.UserId);
 
             activity.AddEvent(new ActivityEvent("Order process completed"));
 
