@@ -1,4 +1,4 @@
-﻿namespace Order.API.Models
+﻿namespace Order.API.OrderServices
 {
     public class Order
     {
@@ -7,13 +7,13 @@
         public DateTime Created { get; set; }
         public Guid UserId { get; set; }
         public OrderStatus Status { get; set; }
-        public List<OrderItem> Items{ get; set; }
+        public List<OrderItem> Items { get; set; }
     }
 
     public enum OrderStatus : byte
     {
-        Succes =1,
-        Fail =0
+        Succes = 1,
+        Fail = 0
     }
 
     public class OrderItem
@@ -21,6 +21,6 @@
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int Count { get; set; }
-        public decimal Price { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }
