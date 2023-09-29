@@ -1,4 +1,5 @@
 ﻿using Common.Shared.DTOs;
+using System.Net;
 
 namespace Stock.API
 {
@@ -12,7 +13,7 @@ namespace Stock.API
             productStockList.Add(50, 500);
             return productStockList;
         }
-        private async Task CheckAndPaymentProcess(StockCheckAndPaymentProcessRequestDto requestDto)
+        public ResponseDto<StockCheckAndPaymentProcessResponsetDto> CheckAndPaymentProcess(StockCheckAndPaymentProcessRequestDto requestDto)
         {
             var productStockList = GetProductStockList();
             var stockStatus = new List<(int productId, bool hasStockExist)>();
@@ -26,9 +27,13 @@ namespace Stock.API
             }
             if (stockStatus.Any(x => x.hasStockExist == false))
             {
-                
+                return ResponseDto<StockCheckAndPaymentProcessResponsetDto>.Fail(HttpStatusCode.BadRequest.GetHashCode(), "There is no stock!");
             }
 
+            return ResponseDto<StockCheckAndPaymentProcessResponsetDto>.Success(HttpStatusCode.OK.GetHashCode(), 
+                new StockCheckAndPaymentProcessResponsetDto() { Description = "Process completed, stock decreased" });
+
+            //Do payment things
         }
     }
 }
