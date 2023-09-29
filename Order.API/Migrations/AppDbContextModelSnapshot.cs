@@ -40,8 +40,8 @@ namespace Order.API.Migrations
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

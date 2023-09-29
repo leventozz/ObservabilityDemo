@@ -19,7 +19,7 @@ namespace Order.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>

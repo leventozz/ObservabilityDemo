@@ -12,7 +12,7 @@ using Order.API.Models;
 namespace Order.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230929140417_initial")]
+    [Migration("20230929141536_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -43,8 +43,8 @@ namespace Order.API.Migrations
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
