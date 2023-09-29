@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.API", "Order.API\Orde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenTelemetry.Shared", "OpenTelemetry.Shared\OpenTelemetry.Shared.csproj", "{0B82C588-DC0E-4300-884A-D8AF158CC7F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Shared", "Common.Shared\Common.Shared.csproj", "{5BA66D64-B505-46DE-8CE3-5209C9480DF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Shared", "Common.Shared\Common.Shared.csproj", "{5BA66D64-B505-46DE-8CE3-5209C9480DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.API", "Stock.API\Stock.API.csproj", "{C8C13E7A-890F-4581-A150-42FDD1BD3B96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5BA66D64-B505-46DE-8CE3-5209C9480DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BA66D64-B505-46DE-8CE3-5209C9480DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BA66D64-B505-46DE-8CE3-5209C9480DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C13E7A-890F-4581-A150-42FDD1BD3B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C13E7A-890F-4581-A150-42FDD1BD3B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C13E7A-890F-4581-A150-42FDD1BD3B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C13E7A-890F-4581-A150-42FDD1BD3B96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
