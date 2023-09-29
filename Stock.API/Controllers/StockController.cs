@@ -13,7 +13,7 @@ namespace Stock.API.Controllers
         {
             _stockService = stockService;
         }
-
+        [HttpPost]
         public  IActionResult StockCheckAndPaymentStart(StockCheckAndPaymentProcessRequestDto requestDto)
         {
             var result = _stockService.CheckAndPaymentProcess(requestDto);
