@@ -28,6 +28,11 @@ namespace OpenTelemetry.Shared
                     };
                     instrumentationsOptions.RecordException = true;
                 });
+                options.AddEntityFrameworkCoreInstrumentation(efcoreOptions =>
+                {
+                    efcoreOptions.SetDbStatementForText = true;
+                    efcoreOptions.SetDbStatementForStoredProcedure = true;
+                });
                 options.AddConsoleExporter();
                 options.AddOtlpExporter();
             });
