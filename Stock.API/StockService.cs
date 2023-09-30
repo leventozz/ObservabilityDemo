@@ -27,7 +27,7 @@ namespace Stock.API
             }
             if (stockStatus.Any(x => x.hasStockExist == false))
             {
-                return ResponseDto<StockCheckAndPaymentProcessResponsetDto>.Fail(HttpStatusCode.BadRequest.GetHashCode(), "There is no stock!");
+                return ResponseDto<StockCheckAndPaymentProcessResponsetDto>.Fail(HttpStatusCode.BadRequest.GetHashCode(), "Insufficient stock!");
             }
 
             return ResponseDto<StockCheckAndPaymentProcessResponsetDto>.Success(HttpStatusCode.OK.GetHashCode(), 
