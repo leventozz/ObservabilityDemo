@@ -1,6 +1,7 @@
 ﻿using Common.Shared.DTOs;
 using OpenTelemetry.Shared;
 using Order.API.Models;
+using Order.API.RedisServices;
 using Order.API.StockServices;
 using System.Diagnostics;
 using System.Net;
@@ -11,14 +12,20 @@ namespace Order.API.OrderServices
     {
         private readonly AppDbContext _appDbContext;
         private readonly StockService _stockService;
-        public OrderService(AppDbContext appDbContext, StockService stockService)
+        private readonly RedisService _redisService;
+        public OrderService(AppDbContext appDbContext, StockService stockService, RedisService redisService)
         {
             _appDbContext = appDbContext;
             _stockService = stockService;
+            _redisService = redisService;
         }
 
         public async Task<ResponseDto<OrderCreateResponseDto>> CreateAsync(OrderCreateRequestDto requestDto)
         {
+            await _redisService.GetDatabase(0).StringSetAsync("userId", requestDto.UserId);
+
+            var redisUserId = _redisService.GetDatabase(0).StringGet("userId");
+
             using var activity = ActivitySourceProvider.Source.StartActivity()!;
             activity.AddEvent(new ActivityEvent("Order process started"));
 
@@ -48,7 +55,7 @@ namespace Order.API.OrderServices
             var (isSuccess, failMessage) = await _stockService.StockCheckAndPaymentStartAsync(stockCheckAndPaymentProcessRequest);
 
             if (!isSuccess)
-                return ResponseDto<OrderCreateResponseDto>.Fail(HttpStatusCode.InternalServerError.GetHashCode(),failMessage!);
+                return ResponseDto<OrderCreateResponseDto>.Fail(HttpStatusCode.InternalServerError.GetHashCode(), failMessage!);
 
             activity.AddEvent(new ActivityEvent("Order process completed"));
 

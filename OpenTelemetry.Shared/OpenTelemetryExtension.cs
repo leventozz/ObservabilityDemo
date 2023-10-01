@@ -53,6 +53,11 @@ namespace OpenTelemetry.Shared
                             activity.SetTag("http.response.body", await response.Content.ReadAsStringAsync());
                     };
                 });
+
+                options.AddRedisInstrumentation(redisOptions =>
+                {
+                    redisOptions.SetVerboseDatabaseStatements = true;
+                });
                 options.AddConsoleExporter();
                 options.AddOtlpExporter();
             });
