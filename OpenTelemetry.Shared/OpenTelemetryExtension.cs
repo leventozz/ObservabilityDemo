@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Diagnostics;
 
 namespace OpenTelemetry.Shared
 {
@@ -20,6 +21,7 @@ namespace OpenTelemetry.Shared
                 {
                     resource.AddService(OTConstants.ServiceName, serviceVersion: OTConstants.ServiceVersion);
                 });
+
                 options.AddAspNetCoreInstrumentation(instrumentationsOptions =>
                 {
                     instrumentationsOptions.Filter = (context) =>
@@ -28,10 +30,28 @@ namespace OpenTelemetry.Shared
                     };
                     instrumentationsOptions.RecordException = true;
                 });
+
                 options.AddEntityFrameworkCoreInstrumentation(efcoreOptions =>
                 {
                     efcoreOptions.SetDbStatementForText = true;
                     efcoreOptions.SetDbStatementForStoredProcedure = true;
+                });
+
+                options.AddHttpClientInstrumentation(httpOptions =>
+                {
+                    httpOptions.EnrichWithHttpRequestMessage = async (activity, request) =>
+                    {
+                        string reqContent = "request is empty";
+                        if(request.Content is not null)
+                            reqContent = await request.Content.ReadAsStringAsync();
+
+                        activity.SetTag("http.request.body", reqContent);
+                    };
+                    httpOptions.EnrichWithHttpResponseMessage = async (activity, response) =>
+                    {
+                        if(response.Content is not null)
+                            activity.SetTag("http.response.body", await response.Content.ReadAsStringAsync());
+                    };
                 });
                 options.AddConsoleExporter();
                 options.AddOtlpExporter();
