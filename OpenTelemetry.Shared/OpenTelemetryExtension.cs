@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using System.Diagnostics;
 
 namespace OpenTelemetry.Shared
 {
@@ -10,7 +9,6 @@ namespace OpenTelemetry.Shared
     {
         public static void AddOpenTelemetryExt(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.Configure<OpenTelemetryConstants>(configuration.GetSection("OpenTelemetry"));
             var OTConstants = (configuration.GetSection("OpenTelemetry").Get<OpenTelemetryConstants>())!;
             ActivitySourceProvider.Source = new System.Diagnostics.ActivitySource(OTConstants.ActivitySourceName);
 
