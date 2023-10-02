@@ -1,6 +1,8 @@
 using Common.Shared;
+using MassTransit;
 using OpenTelemetry.Shared;
 using Stock.API;
+using Stock.API.Consumers;
 using Stock.API.PaymentServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,22 @@ builder.Services.AddOpenTelemetryExt(builder.Configuration);
 builder.Services.AddHttpClient<PaymentService>(options =>
 {
     options.BaseAddress = new Uri((builder.Configuration.GetSection("ApiServices")["PaymentApi"])!);
+});
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<OrderCreatedEventConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+        cfg.ReceiveEndpoint("stock.order-created-event.queue", e=>
+        {
+            e.ConfigureConsumer<OrderCreatedEventConsumer>(context);
+        });
+    });
 });
 var app = builder.Build();
 

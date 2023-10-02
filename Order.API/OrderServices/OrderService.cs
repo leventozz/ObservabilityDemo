@@ -1,4 +1,6 @@
 ﻿using Common.Shared.DTOs;
+using Common.Shared.Events;
+using MassTransit;
 using OpenTelemetry.Shared;
 using Order.API.Models;
 using Order.API.RedisServices;
@@ -13,6 +15,7 @@ namespace Order.API.OrderServices
         private readonly AppDbContext _appDbContext;
         private readonly StockService _stockService;
         private readonly RedisService _redisService;
+        
         public OrderService(AppDbContext appDbContext, StockService stockService, RedisService redisService)
         {
             _appDbContext = appDbContext;
@@ -48,6 +51,7 @@ namespace Order.API.OrderServices
             _appDbContext.Orders.Add(newOrder);
             await _appDbContext.SaveChangesAsync();
 
+            
 
             StockCheckAndPaymentProcessRequestDto stockCheckAndPaymentProcessRequest = new()
             {
