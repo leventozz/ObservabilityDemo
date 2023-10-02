@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<StockService>();
+builder.Services.AddScoped<PaymentService>();
 builder.Services.AddOpenTelemetryExt(builder.Configuration);
 builder.Services.AddHttpClient<PaymentService>(options =>
 {

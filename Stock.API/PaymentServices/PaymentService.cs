@@ -11,7 +11,7 @@ namespace Stock.API.PaymentServices
             _httpClient = httpClient;
         }
 
-        public async Task<(bool isSuccess, string? failMessage)> PaymentCreateProcess(PaymentCreateRequestDto processRequestDto)
+        public async Task<(bool isSuccess, string? failMessage)> PaymentCreateProcessAsync(PaymentCreateRequestDto processRequestDto)
         {
             var response = await _httpClient.PostAsJsonAsync<PaymentCreateRequestDto>("api/Payment/Create", processRequestDto);
             var responseContent = await response.Content.ReadFromJsonAsync<ResponseDto<PaymentCreateResponseDto>>();

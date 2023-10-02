@@ -14,9 +14,9 @@ namespace Stock.API.Controllers
             _stockService = stockService;
         }
         [HttpPost]
-        public  IActionResult StockCheckAndPaymentStart(StockCheckAndPaymentProcessRequestDto requestDto)
+        public async Task<IActionResult> StockCheckAndPaymentStart(StockCheckAndPaymentProcessRequestDto requestDto)
         {
-            var result = _stockService.CheckAndPaymentProcess(requestDto);
+            var result = await _stockService.CheckAndPaymentProcessAsync(requestDto);
             return new ObjectResult(result) { StatusCode = result.StatusCode };
         }
     }
