@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit.Logging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -15,6 +16,7 @@ namespace OpenTelemetry.Shared
             services.AddOpenTelemetry().WithTracing(options =>
             {
                 options.AddSource(OTConstants.ActivitySourceName)
+                .AddSource(DiagnosticHeaders.DefaultListenerName)
                 .ConfigureResource(resource =>
                 {
                     resource.AddService(OTConstants.ServiceName, serviceVersion: OTConstants.ServiceVersion);
@@ -56,6 +58,7 @@ namespace OpenTelemetry.Shared
                 {
                     redisOptions.SetVerboseDatabaseStatements = true;
                 });
+
                 options.AddConsoleExporter();
                 options.AddOtlpExporter();
             });
