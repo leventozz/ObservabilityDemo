@@ -29,6 +29,8 @@ namespace Order.API.OrderServices
             using var activity = ActivitySourceProvider.Source.StartActivity()!;
             activity.AddEvent(new ActivityEvent("Order process started"));
 
+            activity.SetBaggage("userId",requestDto.UserId.ToString());
+
             var newOrder = new Order()
             {
                 Created = DateTime.Now,
