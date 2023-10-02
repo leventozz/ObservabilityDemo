@@ -7,6 +7,6 @@ services:
    - 4317:4317 #grpc
    - 4318:4318 #http
    - 16686:16686 #ui
- redis:
-  ports:
-  - 6379:6379
+ #redis:
+  #ports:
+  #- 6379:6379
