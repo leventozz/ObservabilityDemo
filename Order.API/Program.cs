@@ -1,4 +1,5 @@
 using Common.Shared;
+using Logging.Shared;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Shared;
@@ -6,14 +7,14 @@ using Order.API.Models;
 using Order.API.OrderServices;
 using Order.API.RedisServices;
 using Order.API.StockServices;
+using Serilog;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog(LoggingExt.ConfigureLogging);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<OrderService>();
