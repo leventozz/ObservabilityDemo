@@ -25,7 +25,7 @@ namespace Logging.Shared
             {
                 AutoRegisterTemplate = true,
                 AutoRegisterTemplateVersion = Serilog.Sinks.Elasticsearch.AutoRegisterTemplateVersion.ESv8,
-                IndexFormat = $"{elasticsearchIndexName}-{enviroment.EnvironmentName}-logs-{0:yyy.MM.dd}",
+                IndexFormat = $"{elasticsearchIndexName}-{enviroment.EnvironmentName}-logs-"+"{0:yyy.MM.dd}",
                 ModifyConnectionSettings = x => x.BasicAuthentication(elasticsearchUsername, elasticsearchPassword),
                 CustomFormatter = new ElasticsearchJsonFormatter()
             });
