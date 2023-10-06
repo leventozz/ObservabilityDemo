@@ -4,8 +4,7 @@ using OpenTelemetry.Shared;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+builder.Host.UseSerilog(LoggingExt.ConfigureLogging);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -13,7 +12,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenTelemetryExt(builder.Configuration);
 var app = builder.Build();
-builder.Host.UseSerilog(LoggingExt.ConfigureLogging);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
