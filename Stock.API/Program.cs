@@ -1,16 +1,16 @@
 using Common.Shared;
+using Logging.Shared;
 using MassTransit;
 using OpenTelemetry.Shared;
+using Serilog;
 using Stock.API;
 using Stock.API.Consumers;
 using Stock.API.PaymentServices;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+builder.Host.UseSerilog(LoggingExt.ConfigureLogging);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<StockService>();

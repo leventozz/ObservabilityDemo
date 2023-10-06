@@ -11,6 +11,7 @@ namespace Logging.Shared
         {
             var enviroment = builderContext.HostingEnvironment;
             loggerConfiguration
+            .ReadFrom.Configuration(builderContext.Configuration)
             .Enrich.FromLogContext()
             .Enrich.WithExceptionDetails()
             .Enrich.WithProperty("Env", enviroment.EnvironmentName)

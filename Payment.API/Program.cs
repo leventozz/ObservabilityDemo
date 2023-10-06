@@ -1,5 +1,7 @@
 using Common.Shared;
+using Logging.Shared;
 using OpenTelemetry.Shared;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenTelemetryExt(builder.Configuration);
 var app = builder.Build();
-
+builder.Host.UseSerilog(LoggingExt.ConfigureLogging);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
